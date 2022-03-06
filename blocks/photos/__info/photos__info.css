@@ -1,0 +1,7 @@
+.photos__info {
+  display: flex;
+  margin: 25px auto 0;
+  width: 246px;
+  justify-content: space-between;
+  align-items: center;
+}

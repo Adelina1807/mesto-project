@@ -1,0 +1,15 @@
+.photos__heart {
+  width: 22px;
+  height: 19px;
+  background-image: url(../../../images/heart.png);
+  transition-property: opacity;
+  transition-duration: 0.5s;
+}
+
+.photos__heart:hover {
+  opacity: 0.6;
+}
+
+.photos__heart:active {
+  background-image: url(../../../images/heart_active.png);
+}

@@ -1,0 +1,16 @@
+@media screen and (min-width: 320px) {
+  .footer__copyright {
+    font-size: 14px;
+    line-height: 16.94px;
+    font-weight: 400;
+    color: #545454;
+    margin: 0;
+  }
+}
+
+@media screen and (min-width: 880px) {
+  .footer__copyright {
+    font-size: 18px;
+    line-height: 21.78px;
+  }
+}
