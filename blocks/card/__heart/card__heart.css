@@ -1,15 +1,15 @@
-.photos__heart {
+.card__heart {
   width: 22px;
   height: 19px;
   background-image: url(../../../images/heart.png);
   transition-property: opacity;
   transition-duration: 0.5s;
+  background-color: transparent;
+  border: 0;
+  padding: 0;
 }
 
-.photos__heart:hover {
-  opacity: 0.6;
-}
-
-.photos__heart:active {
-  background-image: url(../../../images/heart_active.png);
+.card__heart:hover {
+  opacity: 0.5;
+  cursor: pointer;
 }

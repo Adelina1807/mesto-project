@@ -2,12 +2,12 @@
   .profile__info {
     display: flex;
     align-items: center;
-    margin: 26px 0 14px;
+    margin: 26px 0 8px;
   }
 }
 
 @media screen and (min-width: 880px) {
   .profile__info {
-    margin: 0 0 16px;
+    margin: 0 0 5px;
   }
 }

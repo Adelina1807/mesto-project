@@ -1,4 +1,4 @@
-.photos__name {
+.card__name {
   font-size: 24px;
   font-weight: 900;
   line-height: 29.05px;
@@ -7,4 +7,5 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  max-width: 219px;
 }
