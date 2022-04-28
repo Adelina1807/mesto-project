@@ -34,98 +34,15 @@
           type="button"
         ></button>
       </section>
-      <section class="photos">
-        <div class="card">
-          <img
-            src="./images/karachaevsk.jpg"
-            alt="Карачаевск"
-            class="card__image"
-          />
-          <div class="card__info">
-            <h2 class="card__name">Карачаевск</h2>
-            <button
-              class="card__heart"
-              aria-label="Понравилось"
-              type="button"
-            ></button>
-          </div>
-        </div>
-        <div class="card">
-          <img
-            src="./images/elbrus.jpg"
-            alt="Гора Эльбрус"
-            class="card__image"
-          />
-          <div class="card__info">
-            <h2 class="card__name">Гора Эльбрус</h2>
-            <button
-              class="card__heart"
-              aria-label="Понравилось"
-              type="button"
-            ></button>
-          </div>
-        </div>
-        <div class="card">
-          <img src="./images/dombay.jpg" alt="Домбай" class="card__image" />
-          <div class="card__info">
-            <h2 class="card__name">Домбай</h2>
-            <button
-              class="card__heart"
-              aria-label="Понравилось"
-              type="button"
-            ></button>
-          </div>
-        </div>
-        <div class="card">
-          <img src="./images/altai.jpg" alt="" class="card__image" />
-          <div class="card__info">
-            <h2 class="card__name">Алтай</h2>
-            <button
-              class="card__heart"
-              aria-label="Понравилось"
-              type="button"
-            ></button>
-          </div>
-        </div>
-        <div class="card">
-          <img
-            src="./images/kungurskaya-cave.jpg"
-            alt="Кунгурская пещера"
-            class="card__image"
-          />
-          <div class="card__info">
-            <h2 class="card__name">Кунгурская пещера</h2>
-            <button
-              class="card__heart"
-              aria-label="Понравилось"
-              type="button"
-            ></button>
-          </div>
-        </div>
-        <div class="card">
-          <img
-            src="./images/kaliningrad.jpg"
-            alt="Калининград"
-            class="card__image"
-          />
-          <div class="card__info">
-            <h2 class="card__name">Калининград</h2>
-            <button
-              class="card__heart"
-              aria-label="Понравилось"
-              type="button"
-            ></button>
-          </div>
-        </div>
-      </section>
+      <section class="photos"></section>
     </main>
     <footer class="footer">
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
-    <div class="popup">
+    <div class="popup popup_type_edit">
       <div class="window">
         <button
-          class="window__close-button"
+          class="window__close-button window__close-button_type_edit"
           aria-label="Закрыть"
           type="button"
         ></button>
@@ -149,6 +66,50 @@
         </form>
       </div>
     </div>
+    <div class="popup popup_type_add">
+      <div class="window">
+        <button
+          class="window__close-button window__close-button_type_add"
+          aria-label="Закрыть"
+          type="button"
+        ></button>
+        <h2 class="window__title">Новое место</h2>
+        <form class="window__form" name="profile">
+          <input
+            type="text"
+            name="title"
+            placeholder="Название"
+            class="window__input window__input_type_name"
+            required
+          />
+          <input
+            type="text"
+            name="link"
+            placeholder="Ссылка на картинку"
+            class="window__input window__input_type_info"
+            required
+          />
+          <button type="submit" class="window__save-button">Создать</button>
+        </form>
+      </div>
+    </div>
+    <template class="card__template">
+      <div class="card">
+        <img
+          src="./images/karachaevsk.jpg"
+          alt="Карачаевск"
+          class="card__image"
+        />
+        <div class="card__info">
+          <h2 class="card__name">Карачаевск</h2>
+          <button
+            class="card__heart"
+            aria-label="Понравилось"
+            type="button"
+          ></button>
+        </div>
+      </div>
+    </template>
     <script src="./script.js"></script>
   </body>
 </html>
