@@ -36,6 +36,9 @@ initialCards.forEach(function(item, i) {
   cards[i].querySelector('.card__image').src = initialCards[i].link;
   cards[i].querySelector('.card__image').alt = initialCards[i].name;
   cards[i].querySelector('.card__name').textContent = initialCards[i].name;
+  cards[i].querySelector('.card__heart').addEventListener('click', function(){
+    cards[i].querySelector('.card__heart').classList.toggle('card__heart_active');
+  });
 
   cardSection.append(cards[i]);
 });
@@ -102,7 +105,12 @@ function formSubmitAdd (evt) {
 
   cardSection.prepend(cards[cards.length-1]);
 
+  cards[cards.length-1].querySelector('.card__heart').addEventListener('click', function(){
+    cards[cards.length-1].querySelector('.card__heart').classList.toggle('card__heart_active');
+  });
+
   closePopupAdd();
+
 }
 
 formElement[1].addEventListener('submit', formSubmitAdd);
