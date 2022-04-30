@@ -36,10 +36,14 @@ initialCards.forEach(function(item, i) {
   cards[i].querySelector('.card__image').src = initialCards[i].link;
   cards[i].querySelector('.card__image').alt = initialCards[i].name;
   cards[i].querySelector('.card__name').textContent = initialCards[i].name;
-  cards[i].querySelector('.card__heart').addEventListener('click', function(){
-    cards[i].querySelector('.card__heart').classList.toggle('card__heart_active');
+
+  cards[i].querySelector('.card__heart').addEventListener('click', function(evt) {
+    evt.target.classList.toggle('card__heart_active');
   });
 
+  cards[i].querySelector('.card__delete').addEventListener('click', function(evt) {
+    evt.target.closest('.card').remove();
+  });
   cardSection.append(cards[i]);
 });
 
@@ -97,20 +101,23 @@ formElement[0].addEventListener('submit', formSubmitEdit);
 function formSubmitAdd (evt) {
   evt.preventDefault();
 
-  cards.push(cardTemplate.querySelector('.card').cloneNode(true));
+  cards.unshift(cardTemplate.querySelector('.card').cloneNode(true));
 
-  cards[cards.length-1].querySelector('.card__image').src = jobInput[1].value;
-  cards[cards.length-1].querySelector('.card__image').alt = nameInput[1].value;
-  cards[cards.length-1].querySelector('.card__name').textContent = nameInput[1].value;
+  cards[0].querySelector('.card__image').src = jobInput[1].value;
+  cards[0].querySelector('.card__image').alt = nameInput[1].value;
+  cards[0].querySelector('.card__name').textContent = nameInput[1].value;
 
-  cardSection.prepend(cards[cards.length-1]);
-
-  cards[cards.length-1].querySelector('.card__heart').addEventListener('click', function(){
-    cards[cards.length-1].querySelector('.card__heart').classList.toggle('card__heart_active');
+  cards[0].querySelector('.card__heart').addEventListener('click', function(evt) {
+    evt.target.classList.toggle('card__heart_active');
   });
 
-  closePopupAdd();
+  cards[0].querySelector('.card__delete').addEventListener('click', function(evt) {
+    evt.target.closest('.card').remove();
+  });
 
-}
+  cardSection.prepend(cards[0]);
+
+  closePopupAdd();
+};
 
 formElement[1].addEventListener('submit', formSubmitAdd);
