@@ -28,3 +28,6 @@
 @import url(../blocks/window/__form/window__form.css);
 @import url(../blocks/window/window.css);
 @import url(../blocks/window/__close-button/window__close-button.css);
+@import url(../blocks/card-opened/__image/card-opened__image.css);
+@import url(../blocks/card-opened/__text/card-opened__text.css);
+@import url(../blocks/card-opened/card-opened.css);

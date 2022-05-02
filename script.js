@@ -26,25 +26,42 @@ const initialCards = [
 ];
 
 const cards = [];
+const cardsOpenedTemplate = document.querySelector('.card-opened__template').content;
 const cardTemplate = document.querySelector('.card__template').content;
 const cardSection = document.querySelector('.photos');
+const content = document.querySelector('.content');
 
 //Добавялем на страницу 6 карточек
 initialCards.forEach(function(item, i) {
-  cards.push(cardTemplate.querySelector('.card').cloneNode(true));
+  cards.push({cardClosed: cardTemplate.querySelector('.card').cloneNode(true), cardOpened: cardsOpenedTemplate.querySelector('.popup_type_photo').cloneNode(true)});
+  cards[i];
 
-  cards[i].querySelector('.card__image').src = initialCards[i].link;
-  cards[i].querySelector('.card__image').alt = initialCards[i].name;
-  cards[i].querySelector('.card__name').textContent = initialCards[i].name;
+  cards[i].cardClosed.querySelector('.card__image').src = initialCards[i].link;
+  cards[i].cardClosed.querySelector('.card__image').alt = initialCards[i].name;
+  cards[i].cardClosed.querySelector('.card__name').textContent = initialCards[i].name;
 
-  cards[i].querySelector('.card__heart').addEventListener('click', function(evt) {
+  cards[i].cardOpened.querySelector('.card-opened__image').src = initialCards[i].link;
+  cards[i].cardOpened.querySelector('.card-opened__image').alt = initialCards[i].name;
+  cards[i].cardOpened.querySelector('.card-opened__text').textContent = initialCards[i].name;
+
+  cards[i].cardClosed.querySelector('.card__image').addEventListener('click', function() {
+    cards[i].cardOpened.classList.add('popup_opened');
+  });
+
+  cards[i].cardOpened.querySelector('.window__close-button_type_photo').addEventListener('click', function(evt) {
+    evt.target.closest('.popup_type_photo').classList.remove('popup_opened');
+  });
+
+  cards[i].cardClosed.querySelector('.card__heart').addEventListener('click', function(evt) {
     evt.target.classList.toggle('card__heart_active');
   });
 
-  cards[i].querySelector('.card__delete').addEventListener('click', function(evt) {
+  cards[i].cardClosed.querySelector('.card__delete').addEventListener('click', function(evt) {
     evt.target.closest('.card').remove();
   });
-  cardSection.append(cards[i]);
+
+  cardSection.append(cards[i].cardClosed);
+  content.append(cards[i].cardOpened);
 });
 
 //Открытие и закрытие формы для изменения профиля
@@ -101,21 +118,34 @@ formElement[0].addEventListener('submit', formSubmitEdit);
 function formSubmitAdd (evt) {
   evt.preventDefault();
 
-  cards.unshift(cardTemplate.querySelector('.card').cloneNode(true));
+  cards.unshift({cardClosed: cardTemplate.querySelector('.card').cloneNode(true), cardOpened: cardsOpenedTemplate.querySelector('.popup_type_photo').cloneNode(true)});
 
-  cards[0].querySelector('.card__image').src = jobInput[1].value;
-  cards[0].querySelector('.card__image').alt = nameInput[1].value;
-  cards[0].querySelector('.card__name').textContent = nameInput[1].value;
+  cards[0].cardClosed.querySelector('.card__image').src = jobInput[1].value;
+  cards[0].cardClosed.querySelector('.card__image').alt = nameInput[1].value;
+  cards[0].cardClosed.querySelector('.card__name').textContent = nameInput[1].value;
 
-  cards[0].querySelector('.card__heart').addEventListener('click', function(evt) {
+  cards[0].cardOpened.querySelector('.card-opened__image').src = jobInput[1].value;
+  cards[0].cardOpened.querySelector('.card-opened__image').alt = nameInput[1].value;
+  cards[0].cardOpened.querySelector('.card-opened__text').textContent = nameInput[1].value;
+
+  cards[0].cardClosed.querySelector('.card__heart').addEventListener('click', function(evt) {
     evt.target.classList.toggle('card__heart_active');
   });
 
-  cards[0].querySelector('.card__delete').addEventListener('click', function(evt) {
+  cards[0].cardClosed.querySelector('.card__delete').addEventListener('click', function(evt) {
     evt.target.closest('.card').remove();
   });
 
-  cardSection.prepend(cards[0]);
+  cards[0].cardClosed.querySelector('.card__image').addEventListener('click', function() {
+    cards[0].cardOpened.classList.add('popup_opened');
+  });
+
+  cards[0].cardOpened.querySelector('.window__close-button_type_photo').addEventListener('click', function(evt) {
+    evt.target.closest('.popup_type_photo').classList.remove('popup_opened');
+  });
+
+  cardSection.prepend(cards[0].cardClosed);
+  content.append(cards[0].cardOpened);
 
   closePopupAdd();
 };
