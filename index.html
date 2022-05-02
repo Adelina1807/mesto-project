@@ -43,7 +43,7 @@
       <div class="popup popup__opened popup_type_edit">
         <div class="window">
           <button
-            class="window__close-button window__close-button_type_edit"
+            class="window__close-button"
             aria-label="Закрыть"
             type="button"
           ></button>
@@ -70,7 +70,7 @@
       <div class="popup popup_type_add">
         <div class="window">
           <button
-            class="window__close-button window__close-button_type_add"
+            class="window__close-button"
             aria-label="Закрыть"
             type="button"
           ></button>
@@ -78,20 +78,35 @@
           <form class="window__form" name="profile">
             <input
               type="text"
-              name="title"
+              name="name"
               placeholder="Название"
               class="window__input window__input_type_name"
               required
             />
             <input
               type="text"
-              name="link"
+              name="imageSrc"
               placeholder="Ссылка на картинку"
               class="window__input window__input_type_info"
               required
             />
             <button type="submit" class="window__save-button">Создать</button>
           </form>
+        </div>
+      </div>
+      <div class="popup popup_type_photo">
+        <div class="card-opened">
+          <button
+            class="window__close-button"
+            aria-label="Закрыть"
+            type="button"
+          ></button>
+          <img
+            src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg"
+            alt="Карачаевск"
+            class="card-opened__image"
+          />
+          <p class="card-opened__text">Карачаевск</p>
         </div>
       </div>
       <template class="card__template">
@@ -109,23 +124,6 @@
               aria-label="Понравилось"
               type="button"
             ></button>
-          </div>
-        </div>
-      </template>
-      <template class="card-opened__template">
-        <div class="popup popup_type_photo">
-          <div class="card-opened">
-            <button
-              class="window__close-button window__close-button_type_photo"
-              aria-label="Закрыть"
-              type="button"
-            ></button>
-            <img
-              src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg"
-              alt="Карачаевск"
-              class="card-opened__image"
-            />
-            <p class="card-opened__text">Карачаевск</p>
           </div>
         </div>
       </template>
