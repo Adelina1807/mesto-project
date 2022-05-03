@@ -7,129 +7,125 @@
     <title>Mesto-project</title>
   </head>
   <body class="page">
-    <div class="content">
-      <header class="header">
-        <img src="./images/logo.svg" alt="Логотип Место" class="header__logo" />
-      </header>
-      <main>
-        <section class="profile">
-          <img
-            src="./images/Jacques-Cousteau.jpg"
-            alt="Жак-Ив Кусто"
-            class="profile__image"
-          />
-          <div>
-            <div class="profile__info">
-              <h1 class="profile__name">Жак-Ив Кусто</h1>
-              <button
-                class="profile__edit-button"
-                aria-label="Редактировать профиль"
-                type="button"
-              ></button>
-            </div>
-            <p class="profile__text">Исследователь океана</p>
-          </div>
-          <button
-            class="profile__add-button"
-            aria-label="Добавить элемент"
-            type="button"
-          ></button>
-        </section>
-        <section class="photos"></section>
-      </main>
-      <footer class="footer">
-        <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
-      </footer>
-      <div class="popup popup__opened popup_type_edit">
-        <div class="window">
-          <button
-            class="window__close-button window__close-button_type_edit"
-            aria-label="Закрыть"
-            type="button"
-          ></button>
-          <h2 class="window__title">Редактировать профиль</h2>
-          <form class="window__form" name="profile">
-            <input
-              type="text"
-              name="firstname"
-              value="Жак-Ив Кусто"
-              class="window__input window__input_type_name"
-              required
-            />
-            <input
-              type="text"
-              name="info"
-              value="Исследователь океана"
-              class="window__input window__input_type_info"
-              required
-            />
-            <button type="submit" class="window__save-button">Сохранить</button>
-          </form>
-        </div>
-      </div>
-      <div class="popup popup_type_add">
-        <div class="window">
-          <button
-            class="window__close-button window__close-button_type_add"
-            aria-label="Закрыть"
-            type="button"
-          ></button>
-          <h2 class="window__title">Новое место</h2>
-          <form class="window__form" name="profile">
-            <input
-              type="text"
-              name="title"
-              placeholder="Название"
-              class="window__input window__input_type_name"
-              required
-            />
-            <input
-              type="text"
-              name="link"
-              placeholder="Ссылка на картинку"
-              class="window__input window__input_type_info"
-              required
-            />
-            <button type="submit" class="window__save-button">Создать</button>
-          </form>
-        </div>
-      </div>
-      <template class="card__template">
-        <div class="card">
-          <img src="./images/trashcan.png" alt="Удалить" class="card__delete" />
-          <img
-            src="./images/karachaevsk.jpg"
-            alt="Карачаевск"
-            class="card__image"
-          />
-          <div class="card__info">
-            <h2 class="card__name">Карачаевск</h2>
+    <header class="header">
+      <img src="./images/logo.svg" alt="Логотип Место" class="header__logo" />
+    </header>
+    <main>
+      <section class="profile">
+        <img
+          src="./images/Jacques-Cousteau.jpg"
+          alt="Жак-Ив Кусто"
+          class="profile__image"
+        />
+        <div>
+          <div class="profile__info">
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
             <button
-              class="card__heart"
-              aria-label="Понравилось"
+              class="profile__edit-button"
+              aria-label="Редактировать профиль"
               type="button"
             ></button>
           </div>
+          <p class="profile__text">Исследователь океана</p>
         </div>
-      </template>
-      <template class="card-opened__template">
-        <div class="popup popup_type_photo">
-          <div class="card-opened">
-            <button
-              class="window__close-button window__close-button_type_photo"
-              aria-label="Закрыть"
-              type="button"
-            ></button>
-            <img
-              src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg"
-              alt="Карачаевск"
-              class="card-opened__image"
-            />
-            <p class="card-opened__text">Карачаевск</p>
-          </div>
-        </div>
-      </template>
+        <button
+          class="profile__add-button"
+          aria-label="Добавить элемент"
+          type="button"
+        ></button>
+      </section>
+      <section class="photos"></section>
+    </main>
+    <footer class="footer">
+      <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+    </footer>
+    <div class="popup popup__opened popup_type_edit">
+      <div class="window">
+        <button
+          class="window__close-button window__close-button_type_edit"
+          aria-label="Закрыть"
+          type="button"
+        ></button>
+        <h2 class="window__title">Редактировать профиль</h2>
+        <form class="window__form" name="profile">
+          <input
+            type="text"
+            name="firstname"
+            value="Жак-Ив Кусто"
+            class="window__input window__input_type_name"
+            required
+          />
+          <input
+            type="text"
+            name="info"
+            value="Исследователь океана"
+            class="window__input window__input_type_info"
+            required
+          />
+          <button type="submit" class="window__save-button">Сохранить</button>
+        </form>
+      </div>
     </div>
+    <div class="popup popup_type_add">
+      <div class="window">
+        <button
+          class="window__close-button window__close-button_type_add"
+          aria-label="Закрыть"
+          type="button"
+        ></button>
+        <h2 class="window__title">Новое место</h2>
+        <form class="window__form" name="profile">
+          <input
+            type="text"
+            name="title"
+            placeholder="Название"
+            class="window__input window__input_type_name"
+            required
+          />
+          <input
+            type="text"
+            name="link"
+            placeholder="Ссылка на картинку"
+            class="window__input window__input_type_info"
+            required
+          />
+          <button type="submit" class="window__save-button">Создать</button>
+        </form>
+      </div>
+    </div>
+    <div class="popup popup_type_photo">
+      <div class="card-opened">
+        <button
+          class="window__close-button window__close-button_type_photo"
+          aria-label="Закрыть"
+          type="button"
+        ></button>
+        <img
+          src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg"
+          alt="Карачаевск"
+          class="card-opened__image"
+        />
+        <p class="card-opened__text">Карачаевск</p>
+      </div>
+    </div>
+    <template class="card__template">
+      <div class="card">
+        <img src="./images/trashcan.png" alt="Удалить" class="card__delete" />
+        <img
+          src="./images/karachaevsk.jpg"
+          alt="Карачаевск"
+          class="card__image"
+        />
+        <div class="card__info">
+          <h2 class="card__name">Карачаевск</h2>
+          <button
+            class="card__heart"
+            aria-label="Понравилось"
+            type="button"
+          ></button>
+        </div>
+      </div>
+    </template>
     <script src="./script.js"></script>
   </body>
 </html>
