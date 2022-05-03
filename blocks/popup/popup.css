@@ -10,5 +10,6 @@
   align-items: center;
   opacity: 0;
   display: flex;
+  z-index: 2;
   transition: visibility 0.5s, opacity 0.3s linear;
 }

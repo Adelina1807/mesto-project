@@ -5,6 +5,7 @@
   transition-property: opacity;
   transition-duration: 0.5s;
   background-color: transparent;
+  z-index: 1;
 }
 
 .card__delete:hover {

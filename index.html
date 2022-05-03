@@ -47,11 +47,12 @@
           type="button"
         ></button>
         <h2 class="window__title">Редактировать профиль</h2>
-        <form class="window__form" name="profile">
+        <form class="window__form window__form_type_profile" name="profile">
           <input
             type="text"
             name="firstname"
             value="Жак-Ив Кусто"
+            placeholder="Имя"
             class="window__input window__input_type_name"
             required
           />
@@ -59,6 +60,7 @@
             type="text"
             name="info"
             value="Исследователь океана"
+            placeholder="Профессия"
             class="window__input window__input_type_info"
             required
           />
@@ -74,7 +76,7 @@
           type="button"
         ></button>
         <h2 class="window__title">Новое место</h2>
-        <form class="window__form" name="profile">
+        <form class="window__form window__form_type_add" name="profile">
           <input
             type="text"
             name="title"
@@ -126,6 +128,7 @@
         </div>
       </div>
     </template>
+    <script src="./cards.js"></script>
     <script src="./script.js"></script>
   </body>
 </html>
