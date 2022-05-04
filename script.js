@@ -70,9 +70,9 @@ closeEditButton.addEventListener('click', function() {
 });
 
 //Открытие и закрытие формы для добавление карточки
-const formElementAddCards = document.querySelector('.window__form_type_add');
-const imageNameInput = formElementAddCards.querySelector('.window__input_type_name');
-const linkInput = formElementAddCards.querySelector('.window__input_type_info');
+const formElementAddCard = document.querySelector('.window__form_type_add');
+const imageNameInput = formElementAddCard.querySelector('.window__input_type_name');
+const linkInput = formElementAddCard.querySelector('.window__input_type_info');
 
 const addButton = document.querySelector('.profile__add-button');
 const addPopup = document.querySelector('.popup_type_add');
@@ -80,7 +80,7 @@ const closeAddButton = document.querySelector('.window__close-button_type_add');
 
 addButton.addEventListener('click', function() {
   openPopup(addPopup);
-  formElementAddCards.reset();
+  formElementAddCard.reset();
 });
 
 closeAddButton.addEventListener('click', function() {
@@ -108,7 +108,7 @@ function handleAddCardFormSubmit (evt) {
   closePopup(addPopup);
 };
 
-formElementAddCards.addEventListener('submit', handleAddCardFormSubmit);
+formElementAddCard.addEventListener('submit', handleAddCardFormSubmit);
 
 cardOpenedClose.addEventListener('click', function() {
   closePopup(cardOpened);
