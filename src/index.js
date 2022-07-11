@@ -1,7 +1,7 @@
 import "./styles/index.css";
 
 import { handleProfileFormSubmit } from "./components/modal.js";
-import { enableValidation } from "./components/validate.js";
+import { enableValidation, toggleButtonState } from "./components/validate.js";
 import {
   handleAddCardFormSubmit,
   addCard,
@@ -93,17 +93,9 @@ closeEditButton.addEventListener("click", function () {
 });
 
 //Закрытие формы для изменения профиля(клик вне области)
-editPopup.addEventListener("click", function (evt) {
+editPopup.addEventListener("mousedown", function (evt) {
   const target = evt.target;
-  console.log(target);
   if (!target.closest(".window") && !target.closest(".window__form")) {
-    closePopup(editPopup);
-  }
-});
-
-//Закрытие формы для изменения профиля(нажатие escape)
-document.addEventListener("keydown", function (evt) {
-  if (evt.key === "Escape") {
     closePopup(editPopup);
   }
 });
@@ -115,6 +107,20 @@ formElementProfile.addEventListener("submit", handleProfileFormSubmit);
 addButton.addEventListener("click", function () {
   openPopup(addPopup);
   formElementAddCard.reset();
+
+  const inputListAddPopup = Array.from(
+    addPopup.querySelectorAll(".window__input")
+  );
+  const buttonAddPopup = addPopup.querySelector(".window__save-button");
+
+  toggleButtonState(inputListAddPopup, buttonAddPopup, {
+    formSelector: ".window__form",
+    inputSelector: ".window__input",
+    submitButtonSelector: ".window__save-button",
+    inactiveButtonClass: "window__save-button_inactive",
+    inputErrorClass: "window__input_type_error",
+    errorClass: "window__input-error_active",
+  });
 });
 
 //Закрытие формы для добавления карточки(кнопка крестик)
@@ -123,17 +129,9 @@ closeAddButton.addEventListener("click", function () {
 });
 
 //Закрытие формы для добавления карточки(клик вне области)
-addPopup.addEventListener("click", function (evt) {
+addPopup.addEventListener("mousedown", function (evt) {
   const target = evt.target;
-  console.log(target);
   if (!target.closest(".window") && !target.closest(".window__form")) {
-    closePopup(addPopup);
-  }
-});
-
-//Закрытие формы для добавления карточки(нажатие escape)
-document.addEventListener("keydown", function (evt) {
-  if (evt.key === "Escape") {
     closePopup(addPopup);
   }
 });
@@ -147,17 +145,9 @@ cardOpenedClose.addEventListener("click", function () {
 });
 
 //Закрытие карточки(клик вне области)
-cardOpened.addEventListener("click", function (evt) {
+cardOpened.addEventListener("mousedown", function (evt) {
   const target = evt.target;
-  console.log(target);
-  if (!target.closest(".window") && !target.closest(".window__form")) {
-    closePopup(cardOpened);
-  }
-});
-
-//Закрытие карточки(нажатие escape)
-document.addEventListener("keydown", function (evt) {
-  if (evt.key === "Escape") {
+  if (!target.closest(".card-opened")) {
     closePopup(cardOpened);
   }
 });
