@@ -1,6 +1,9 @@
 import "./styles/index.css";
 
-import { handleProfileFormSubmit } from "./components/modal.js";
+import {
+  handleProfileFormSubmit,
+  handleProfilePhotoFormSubmit,
+} from "./components/modal.js";
 import { enableValidation, toggleButtonState } from "./components/validate.js";
 import {
   handleAddCardFormSubmit,
@@ -8,33 +11,7 @@ import {
   createCard,
 } from "./components/card.js";
 import { openPopup, closePopup } from "./components/utils.js";
-
-const initialCards = [
-  {
-    name: "Архыз",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-  },
-  {
-    name: "Челябинская область",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-  },
-  {
-    name: "Иваново",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-  },
-  {
-    name: "Камчатка",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-  },
-  {
-    name: "Холмогорский район",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-  },
-  {
-    name: "Байкал",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-  },
-];
+import { getProfileInfo, getRes, getCards } from "./components/api";
 
 export const cardTemplate = document.querySelector(".card__template").content;
 export const cardSection = document.querySelector(".photos");
@@ -53,9 +30,13 @@ export const nameInput = formElementProfile.querySelector(
 export const jobInput = formElementProfile.querySelector(
   ".window__input_type_info"
 );
+export const saveProfile = formElementProfile.querySelector(
+  ".window__save-button"
+);
 
 export const profileName = document.querySelector(".profile__name");
 export const profileJob = document.querySelector(".profile__text");
+export const profileImage = document.querySelector(".profile__image");
 
 const editButton = document.querySelector(".profile__edit-button");
 export const editPopup = document.querySelector(".popup_type_edit");
@@ -70,15 +51,55 @@ export const imageNameInput = formElementAddCard.querySelector(
 export const linkInput = formElementAddCard.querySelector(
   ".window__input_type_info"
 );
+export const saveCard = formElementAddCard.querySelector(
+  ".window__save-button"
+);
 
 const addButton = document.querySelector(".profile__add-button");
 export const addPopup = document.querySelector(".popup_type_add");
 const closeAddButton = document.querySelector(".window__close-button_type_add");
 
-//Добавялем на страницу 6 карточек
-initialCards.forEach(function (item) {
-  addCard(createCard(item.link, item.name));
-});
+const photoEdit = document.querySelector(".profile__image_state_hover");
+export const photoEditPopup = document.querySelector(
+  ".popup_type_profile-photo"
+);
+const photoEditCloseButton = document.querySelector(
+  ".window__close-button_type_profile-photo"
+);
+
+const photoEditForm = document.querySelector(
+  ".window__form_type_profile-photo"
+);
+export const photoInput = photoEditForm.querySelector(
+  ".window__input_type_info"
+);
+export const savePhoto = photoEditForm.querySelector(".window__save-button");
+//Загружаем информацию о пользователе
+getProfileInfo()
+  .then(getRes)
+  .then((result) => {
+    profileName.textContent = result.name;
+    profileJob.textContent = result.about;
+    profileImage.src = result.avatar;
+    profileImage.alt = result.name;
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+//Загружаем карточки с сервера
+getCards()
+  .then(getRes)
+  .then((result) => {
+    result.reverse().forEach(function (item) {
+      addCard(
+        createCard(item.link, item.name, item.likes, item.owner._id, item._id)
+      );
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 //Открытие формы для изменения профиля
 editButton.addEventListener("click", function () {
@@ -149,6 +170,43 @@ cardOpened.addEventListener("mousedown", function (evt) {
   const target = evt.target;
   if (!target.closest(".card-opened")) {
     closePopup(cardOpened);
+  }
+});
+
+photoEditForm.addEventListener("submit", handleProfilePhotoFormSubmit);
+
+//Открытие формы для изменения фотографии профиля
+photoEdit.addEventListener("click", function () {
+  openPopup(photoEditPopup);
+  photoEditForm.reset();
+
+  const inputListphotoEditPopup = Array.from(
+    photoEditPopup.querySelectorAll(".window__input")
+  );
+  const buttonphotoEditPopup = photoEditPopup.querySelector(
+    ".window__save-button"
+  );
+
+  toggleButtonState(inputListphotoEditPopup, buttonphotoEditPopup, {
+    formSelector: ".window__form",
+    inputSelector: ".window__input",
+    submitButtonSelector: ".window__save-button",
+    inactiveButtonClass: "window__save-button_inactive",
+    inputErrorClass: "window__input_type_error",
+    errorClass: "window__input-error_active",
+  });
+});
+
+//Закрытие формы для изменения фотографии профиля(кнопка крестик)
+photoEditCloseButton.addEventListener("click", function () {
+  closePopup(photoEditPopup);
+});
+
+//Закрытие формы для изменения фотографии профиля(клик вне области)
+photoEditPopup.addEventListener("mousedown", function (evt) {
+  const target = evt.target;
+  if (!target.closest(".window") && !target.closest(".window__form")) {
+    closePopup(photoEditPopup);
   }
 });
 
