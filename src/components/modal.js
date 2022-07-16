@@ -12,44 +12,40 @@ import {
   savePhoto,
 } from "../index.js";
 import { closePopup } from "./utils.js";
-import { updateProfileInfo, getRes, updateProfilePhoto } from "./api.js";
+import { updateProfileInfo, updateProfilePhoto } from "./api.js";
 
 export function handleProfileFormSubmit(evt) {
   saveProfile.textContent = "Сохранение...";
   evt.preventDefault();
 
-  profileName.textContent = nameInput.value;
-  profileJob.textContent = jobInput.value;
-
   updateProfileInfo(nameInput.value, jobInput.value)
-    .then(getRes)
-    .then((res) => {
-      saveProfile.textContent = "Сохранить";
-      console.log(res);
+    .then(() => {
+      profileName.textContent = nameInput.value;
+      profileJob.textContent = jobInput.value;
+      closePopup(editPopup);
     })
     .catch((err) => {
       console.log(err);
+    })
+    .finally(() => {
+      saveProfile.textContent = "Сохранить";
     });
-
-  closePopup(editPopup);
 }
 
 export function handleProfilePhotoFormSubmit(evt) {
   savePhoto.textContent = "Сохранение...";
   evt.preventDefault();
 
-  profileImage.src = photoInput.value;
-  profileImage.alt = profileName;
-
   updateProfilePhoto(photoInput.value)
-    .then(getRes)
-    .then((res) => {
-      savePhoto.textContent = "Сохранить";
-      console.log(res);
+    .then(() => {
+      profileImage.src = photoInput.value;
+      profileImage.alt = profileName;
+      closePopup(photoEditPopup);
     })
     .catch((err) => {
       console.log(err);
+    })
+    .finally(() => {
+      savePhoto.textContent = "Сохранить";
     });
-
-  closePopup(photoEditPopup);
 }

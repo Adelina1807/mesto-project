@@ -9,10 +9,11 @@ import {
   linkInput,
   imageNameInput,
   saveCard,
+  userID,
 } from "../index.js";
 
 import { openPopup, closePopup } from "./utils.js";
-import { appendCard, getRes, deleteCard, putLike, deleteLike } from "./api.js";
+import { appendCard, deleteCard, putLike, deleteLike } from "./api.js";
 
 export function addCard(card) {
   cardSection.prepend(card);
@@ -21,28 +22,29 @@ export function addCard(card) {
 export function createCard(link, name, likes, owner, id) {
   const card = cardTemplate.querySelector(".card").cloneNode(true);
   const cardLikeNumber = card.querySelector(".card__like-number");
+  const cardImage = card.querySelector(".card__image");
+  const cardHeart = card.querySelector(".card__heart");
 
-  card.querySelector(".card__image").src = link;
-  card.querySelector(".card__image").alt = name;
+  cardImage.src = link;
+  cardImage.alt = name;
   card.querySelector(".card__name").textContent = name;
   cardLikeNumber.textContent = likes.length;
 
-  card.querySelector(".card__heart").addEventListener("click", function (evt) {
-    evt.target.classList.toggle("card__heart_active");
-    if (evt.target.classList.contains("card__heart_active")) {
+  cardHeart.addEventListener("click", function (evt) {
+    if (!evt.target.classList.contains("card__heart_active")) {
       putLike(id)
-        .then(getRes)
         .then((res) => {
           cardLikeNumber.textContent = res.likes.length;
+          evt.target.classList.toggle("card__heart_active");
         })
         .catch((err) => {
           console.log(err);
         });
     } else {
       deleteLike(id)
-        .then(getRes)
         .then((res) => {
           cardLikeNumber.textContent = res.likes.length;
+          evt.target.classList.toggle("card__heart_active");
         })
         .catch((err) => {
           console.log(err);
@@ -52,27 +54,21 @@ export function createCard(link, name, likes, owner, id) {
 
   if (
     likes.some(function (id) {
-      return id._id === "1530cef55a8d58a5ead46352";
+      return id._id === userID;
     })
   ) {
-    if (
-      !card
-        .querySelector(".card__heart")
-        .classList.contains("card__heart_active")
-    ) {
-      card.querySelector(".card__heart").classList.add("card__heart_active");
+    if (!cardHeart.classList.contains("card__heart_active")) {
+      cardHeart.classList.add("card__heart_active");
     }
   }
 
-  if (owner === "1530cef55a8d58a5ead46352") {
+  if (owner === userID) {
     card
       .querySelector(".card__delete")
       .addEventListener("click", function (evt) {
-        evt.target.closest(".card").remove();
         deleteCard(id)
-          .then(getRes)
-          .then((res) => {
-            console.log(res);
+          .then(() => {
+            evt.target.closest(".card").remove();
           })
           .catch((err) => {
             console.log(err);
@@ -82,7 +78,7 @@ export function createCard(link, name, likes, owner, id) {
     card.querySelector(".card__delete").remove();
   }
 
-  card.querySelector(".card__image").addEventListener("click", function () {
+  cardImage.addEventListener("click", function () {
     cardOpenedImage.src = link;
     cardOpenedImage.alt = name;
     cardOpenedText.textContent = name;
@@ -96,16 +92,16 @@ export function handleAddCardFormSubmit(evt) {
   evt.preventDefault();
 
   appendCard(imageNameInput.value, linkInput.value)
-    .then(getRes)
     .then((res) => {
-      saveCard.textContent = "Создать";
       addCard(
         createCard(res.link, res.name, res.likes, res.owner._id, res._id)
       );
+      closePopup(addPopup);
     })
     .catch((err) => {
       console.log(err);
+    })
+    .finally(() => {
+      saveCard.textContent = "Создать";
     });
-
-  closePopup(addPopup);
 }

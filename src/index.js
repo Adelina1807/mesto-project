@@ -11,7 +11,7 @@ import {
   createCard,
 } from "./components/card.js";
 import { openPopup, closePopup } from "./components/utils.js";
-import { getProfileInfo, getRes, getCards } from "./components/api";
+import { getProfileInfo, getCards } from "./components/api";
 
 export const cardTemplate = document.querySelector(".card__template").content;
 export const cardSection = document.querySelector(".photos");
@@ -74,24 +74,28 @@ export const photoInput = photoEditForm.querySelector(
   ".window__input_type_info"
 );
 export const savePhoto = photoEditForm.querySelector(".window__save-button");
-//Загружаем информацию о пользователе
-getProfileInfo()
-  .then(getRes)
-  .then((result) => {
-    profileName.textContent = result.name;
-    profileJob.textContent = result.about;
-    profileImage.src = result.avatar;
-    profileImage.alt = result.name;
-  })
-  .catch((err) => {
-    console.log(err);
-  });
 
-//Загружаем карточки с сервера
-getCards()
-  .then(getRes)
-  .then((result) => {
-    result.reverse().forEach(function (item) {
+const settings = {
+  formSelector: ".window__form",
+  inputSelector: ".window__input",
+  submitButtonSelector: ".window__save-button",
+  inactiveButtonClass: "window__save-button_inactive",
+  inputErrorClass: "window__input_type_error",
+  errorClass: "window__input-error_active",
+};
+
+export let userID;
+
+//Загрузка профиля и карточек с сервера
+Promise.all([getProfileInfo(), getCards()])
+  .then(([userData, cards]) => {
+    profileName.textContent = userData.name;
+    profileJob.textContent = userData.about;
+    profileImage.src = userData.avatar;
+    profileImage.alt = userData.name;
+    userID = userData._id;
+
+    cards.reverse().forEach(function (item) {
       addCard(
         createCard(item.link, item.name, item.likes, item.owner._id, item._id)
       );
@@ -134,14 +138,7 @@ addButton.addEventListener("click", function () {
   );
   const buttonAddPopup = addPopup.querySelector(".window__save-button");
 
-  toggleButtonState(inputListAddPopup, buttonAddPopup, {
-    formSelector: ".window__form",
-    inputSelector: ".window__input",
-    submitButtonSelector: ".window__save-button",
-    inactiveButtonClass: "window__save-button_inactive",
-    inputErrorClass: "window__input_type_error",
-    errorClass: "window__input-error_active",
-  });
+  toggleButtonState(inputListAddPopup, buttonAddPopup, settings);
 });
 
 //Закрытие формы для добавления карточки(кнопка крестик)
@@ -187,14 +184,7 @@ photoEdit.addEventListener("click", function () {
     ".window__save-button"
   );
 
-  toggleButtonState(inputListphotoEditPopup, buttonphotoEditPopup, {
-    formSelector: ".window__form",
-    inputSelector: ".window__input",
-    submitButtonSelector: ".window__save-button",
-    inactiveButtonClass: "window__save-button_inactive",
-    inputErrorClass: "window__input_type_error",
-    errorClass: "window__input-error_active",
-  });
+  toggleButtonState(inputListphotoEditPopup, buttonphotoEditPopup, settings);
 });
 
 //Закрытие формы для изменения фотографии профиля(кнопка крестик)
@@ -214,11 +204,4 @@ photoEditPopup.addEventListener("mousedown", function (evt) {
 // включение валидации вызовом enableValidation
 // все настройки передаются при вызове
 
-enableValidation({
-  formSelector: ".window__form",
-  inputSelector: ".window__input",
-  submitButtonSelector: ".window__save-button",
-  inactiveButtonClass: "window__save-button_inactive",
-  inputErrorClass: "window__input_type_error",
-  errorClass: "window__input-error_active",
-});
+enableValidation(settings);
